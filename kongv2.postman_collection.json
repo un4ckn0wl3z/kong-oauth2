@@ -1,0 +1,468 @@
+{
+	"info": {
+		"_postman_id": "f8e62749-f825-4966-bfb0-e22d6045a241",
+		"name": "kong",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Create Service",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "time-api",
+							"type": "text"
+						},
+						{
+							"key": "host",
+							"value": "kong-app",
+							"type": "text"
+						},
+						{
+							"key": "port",
+							"value": "3000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/services",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Route",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "hosts[]",
+							"value": "time-api",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/services/time-api/routes",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"time-api",
+						"routes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Rate Limit",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "rate-limiting",
+							"type": "text"
+						},
+						{
+							"key": "config.minute",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/services/time-api/plugins/",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"time-api",
+						"plugins",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Service",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "host",
+						"value": "time-api",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://174.138.27.236:8000",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Enable Key Auth",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "key-auth",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/services/time-api/plugins/",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"services",
+						"time-api",
+						"plugins",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create User",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "QA",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/consumers/",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"consumers",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Key",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "key",
+							"value": "Hello_Kong!",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://174.138.27.236:8001/consumers/QA/key-auth",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8001",
+					"path": [
+						"consumers",
+						"QA",
+						"key-auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Test Service with Key",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "host",
+						"type": "text",
+						"value": "time-api"
+					},
+					{
+						"key": "apikey",
+						"value": "Hello_Kong!",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://174.138.27.236:8000",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8000"
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stepcounts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mock-logged-in-as",
+						"value": "clark",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "https://localhost:3000/stepcounts",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"stepcounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stepcounts via Kong",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "mock-logged-in-as",
+						"value": "clark",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://174.138.27.236:8000/stepon/stepcounts",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8000",
+					"path": [
+						"stepon",
+						"stepcounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Request Auth Code",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"client_id\": \"vZxWeVVXFqVfdJ0rqmvV2GWyOaAv2MdP\",\r\n  \"provision_key\": \"L4Fy6xAWG6lkJA2ScB1gPsBVUEQ5em18\",\r\n  \"authenticated_userid\": \"clark\",\r\n  \"response_type\": \"code\",\r\n  \"scope\": \"step_counts\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://174.138.27.236:8443/stepon/oauth2/authorize",
+					"protocol": "https",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8443",
+					"path": [
+						"stepon",
+						"oauth2",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Exchange Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grant_type\": \"authorization_code\",\r\n    \"client_secret\": \"x3M26TH9HIIvYwtNj19RJ3yVQMQlbNhP\",\r\n    \"client_id\": \"vZxWeVVXFqVfdJ0rqmvV2GWyOaAv2MdP\",\r\n    \"code\": \"6q4n4YtixSnzbKhYY590JIPtkJ8A7fpy\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://174.138.27.236:8443/stepon/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8443",
+					"path": [
+						"stepon",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "stepcounts via Kong With Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "J6GOyg31sJkC1daneAnalRCAaD7kOS5Z",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://174.138.27.236:8000/stepon/stepcounts",
+					"protocol": "http",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8000",
+					"path": [
+						"stepon",
+						"stepcounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Refresh Token",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"grant_type\": \"refresh_token\",\r\n    \"client_secret\": \"x3M26TH9HIIvYwtNj19RJ3yVQMQlbNhP\",\r\n    \"client_id\": \"vZxWeVVXFqVfdJ0rqmvV2GWyOaAv2MdP\",\r\n    \"refresh_token\": \"qOzXLAylXwdU7rNzX4vvBjY8zgqUl7NQ\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://174.138.27.236:8443/stepon/oauth2/token",
+					"protocol": "https",
+					"host": [
+						"174",
+						"138",
+						"27",
+						"236"
+					],
+					"port": "8443",
+					"path": [
+						"stepon",
+						"oauth2",
+						"token"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
